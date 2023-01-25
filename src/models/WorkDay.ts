@@ -6,7 +6,7 @@ export type WorkDay = {
 };
 
 type Team = {firstDate: string, lead: string};
-type Shift = {text: string,style: string};
+export type Shift = {type: string, style: string, shiftLead?: string, date?: Date};
 
 export const teams: Team[] = [
     {firstDate: '2020, 6, 8', lead: 'Viacheslav Yuriev'},
@@ -16,17 +16,17 @@ export const teams: Team[] = [
     {firstDate: '2020, 6, 20', lead: 'Maksym Soroka'}
 ];
 
-export const Shifts =  [
-    {   text: 'first shift',
+const shifts: Shift[] =  [
+    {   type: 'first shift',
         style: 'work_shift',
     },
-    {   text: 'second shift',
+    {   type: 'second shift',
         style: 'work_shift'
     },
-    {   text: 'night shift',
+    {   type: 'night shift',
         style: 'work_shift'
     },
-    {   text: 'day off',
+    {   type: 'day off',
         style: 'day_off'
     }
 ];
@@ -34,13 +34,13 @@ export const Shifts =  [
 function compare(num: number) { 
     let result: Shift | null = null; 
     if (num==14 || num==13 || num==12 || num==8 || num==7 || num==6) {
-        result = Shifts[3];
+        result = shifts[3];
     } else  if (num==11 || num==10 || num==9) {
-        result = Shifts[3];
+        result = shifts[3];
     } else  if (num==5 || num==4 || num==3) {
-        result = Shifts[1];
+        result = shifts[1];
     } else if (num==2 || num===1 || num===0) {
-        result = Shifts[0]; 
+        result = shifts[0]; 
     } 
     if (result) return result;
 }
@@ -48,18 +48,18 @@ function compare(num: number) {
 function compareBack(num: number) { 
     let result: Shift | null = null; 
     if (num==1 || num==2 || num==3 || num==7 || num==8 || num==9) {
-        result = Shifts[3];
+        result = shifts[3];
     } else  if (num==4 || num==5 || num==6) {
-        result = Shifts[2];
+        result = shifts[2];
     } else  if (num==10 || num==11 || num==12) {
-        result = Shifts[1];
+        result = shifts[1];
     } else if (num==13 || num==14 || num===0 || num==15) {
-        result = Shifts[0]; 
+        result = shifts[0]; 
     }
     if (result !== null) return result;
 }
 
-function getShift(initialDate: Date, requiredDate: Date) {
+function getShift(initialDate: Date, requiredDate: Date, shiftLead: string) {
     let date: number = Math.round(+initialDate/86400000);
     let day: number = Math.round(+requiredDate/86400000);
     let someShift: Shift | null = null;   
@@ -69,12 +69,12 @@ function getShift(initialDate: Date, requiredDate: Date) {
         if (x>14) {
             y = x%15;
             let result = compare(y);
-            if(result) someShift =result;
+            if(result) someShift = {...result} ;
         } else if (x>0) {
             let result = compare(x);    
-            if(result) someShift =result;
+            if(result) someShift = {...result};
         } else if (x===0) {
-            someShift = Shifts[0];              
+            someShift = {...shifts[0]};              
         }
         
     } else if (day<date){
@@ -82,24 +82,31 @@ function getShift(initialDate: Date, requiredDate: Date) {
         if (x>15) {
             y = x%15;
             let result = compareBack(y);
-            if(result) someShift =result;
+            if(result) someShift = {...result};
             
         } else if (x==15) {                
             let result = compareBack(x); 
-            if(result) someShift =result;       
+            if(result) someShift = {...result};       
         }   
         else if (x) {    
             let result = compareBack(x); 
-            if(result) someShift =result;       
+            if(result) someShift = {...result};       
         }                
-    }    
-    if (someShift !== null) return someShift;    
+    }  
+    if (someShift !== null) {
+        someShift.shiftLead = shiftLead;
+        someShift.date = requiredDate;
+        return someShift;
+    }  
+    return 
 };
 
-function calculateDate(teamNumber: number, day: any) {
-    let date1: Date = new Date(teams[teamNumber].firstDate); 
-    let date2: Date = day.valueAsDate; 
-    let dayType = getShift(date1, date2);       
+function calculateDate(team: number, day: any) {
+    let shiftLead: string = teams[team].lead;
+    let date1: Date = new Date(teams[team].firstDate); 
+    let date2: Date = new Date (day); 
+    let dayType: Shift | undefined = getShift(date1, date2, shiftLead); 
+    if (dayType) return dayType ;   
 }
 
 
@@ -125,3 +132,5 @@ export const workDays: WorkDay[] =
             shiftType: ''
         },
     ]
+
+    console.log (calculateDate (0, '2023-01-25'))

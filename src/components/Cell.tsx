@@ -3,7 +3,7 @@ import React from 'react';
 type CellProps = {
     shift: string;
     shiftType: string;
-    id: string
+    id: string;
 }
 
 const cellStyles: string[] = ['vacation', 'sickLeave', 'changeShift']

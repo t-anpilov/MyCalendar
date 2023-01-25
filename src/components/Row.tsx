@@ -17,6 +17,7 @@ export const Row:React.FC<RowProps> = props => {
                         shift = {day.shift}
                         shiftType = {day.shiftType}
                         id = {day.id}
+                        key = {day.id}
                     />
                 )
             })

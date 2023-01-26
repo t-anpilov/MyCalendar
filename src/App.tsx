@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Row
-        days={ workDays }
+        shifts={ workDays }
       />
     </div>
   );

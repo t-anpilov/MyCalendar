@@ -1,27 +1,32 @@
 import React from 'react';
 import { Cell } from './Cell'
-import { WorkDay } from '../models/WorkDay';
+import { Shift } from '../models/WorkDay';
 
 type RowProps = {
-   days: WorkDay[]
+   shifts: Shift[]
 };
 
 export const Row:React.FC<RowProps> = props => {
 
     return (
-        <ul>
-        {
-            props.days.map(day => {
-                return (
-                    <Cell
-                        shift = {day.shift}
-                        shiftType = {day.shiftType}
-                        id = {day.id}
-                        key = {day.id}
-                    />
-                )
-            })
-        }
-        </ul>
+        <div className='DateBlock'>
+            <header>{props.shifts[0].date?.toLocaleDateString()}</header>
+            <ul>
+            {
+                props.shifts.map(shift => {
+                    return (
+                        <Cell
+                            type = {shift.type}
+                            style = {shift.style}
+                            date = {shift.date}
+                            shiftLead = {shift.shiftLead}
+                            id = {shift.id}
+                            key = {shift.id}
+                        />
+                    )
+                })
+            }
+            </ul>
+        </div>
     );
 };

@@ -1,14 +1,13 @@
-export type WorkDay = {
-    id: string,
-    date: Date,
-    shift: string,
-    shiftType: string
+type Team = {firstDate: string, lead: string};
+export type Shift = {
+    type: string, 
+    style: string, 
+    shiftLead?: string, 
+    date?: Date,
+    id?: string
 };
 
-type Team = {firstDate: string, lead: string};
-export type Shift = {type: string, style: string, shiftLead?: string, date?: Date};
-
-export const teams: Team[] = [
+const teams: Team[] = [
     {firstDate: '2020, 6, 8', lead: 'Viacheslav Yuriev'},
     {firstDate: '2020, 6, 11', lead: 'Oleg Melnychuk'},
     {firstDate: '2020, 6, 14', lead: 'Dmytro Kytsiuk'},
@@ -36,7 +35,7 @@ function compare(num: number) {
     if (num==14 || num==13 || num==12 || num==8 || num==7 || num==6) {
         result = shifts[3];
     } else  if (num==11 || num==10 || num==9) {
-        result = shifts[3];
+        result = shifts[2];
     } else  if (num==5 || num==4 || num==3) {
         result = shifts[1];
     } else if (num==2 || num===1 || num===0) {
@@ -66,8 +65,10 @@ function getShift(initialDate: Date, requiredDate: Date, shiftLead: string) {
     let x: number, y: number;
     if (day>=date){
         x = day-date
+        console.log(x)
         if (x>14) {
             y = x%15;
+            console.log(y)
             let result = compare(y);
             if(result) someShift = {...result} ;
         } else if (x>0) {
@@ -96,6 +97,7 @@ function getShift(initialDate: Date, requiredDate: Date, shiftLead: string) {
     if (someShift !== null) {
         someShift.shiftLead = shiftLead;
         someShift.date = requiredDate;
+        someShift.id = (Math.random()*10).toString();
         return someShift;
     }  
     return 
@@ -110,27 +112,9 @@ function calculateDate(team: number, day: any) {
 }
 
 
+export const workDays: Shift[] = [];
 
-export const workDays: WorkDay[] = 
-    [
-        {
-            id: '001',
-            date: new Date(),
-            shift: 'first',
-            shiftType: ''
-        },
-        {
-            id: '002',
-            date: new Date(),
-            shift: 'second',
-            shiftType: ''
-        },
-        {
-            id: '003',
-            date: new Date(),
-            shift: 'night',
-            shiftType: ''
-        },
-    ]
-
-    console.log (calculateDate (0, '2023-01-25'))
+for (let i=0; i<teams.length; i++) {
+    let newShift = calculateDate (i, '2023-01-26');
+    if (newShift) workDays[i] = newShift;
+};

@@ -1,16 +1,28 @@
 ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.DateBlock {
+    display: inline-block;    
+    margin: 20px 0px 0px 32px;
+    width: 210px;
+    padding: 12px;
+    opacity: 0.81;
+    text-align: center;
 }
 
 ul li {
-    display: inline-block;
-    width: 30px;
-    padding: 12px;
+    padding: 8px;
     margin: 1px;
     opacity: 0.81;
-    text-align: center;
     border: 1px solid rgb(102, 112, 122);
     font-size: 1.1rem;
     font-weight: bold;
 }
 
+.DateBlock header {
+    padding: 8px;
+    font-size: 1.2rem;
+}

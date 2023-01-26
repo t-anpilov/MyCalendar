@@ -1,6 +1,6 @@
 import React from 'react';
 import { Cell } from './Cell'
-import { Shift } from '../models/WorkDay';
+import { Shift } from '../models/Shifts';
 
 type RowProps = {
    shifts: Shift[]

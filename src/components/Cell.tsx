@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shift } from '../models/WorkDay'
+import { Shift } from '../models/Shifts'
 
 type CellProps = Shift;
 

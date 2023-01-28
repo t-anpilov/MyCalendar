@@ -127,7 +127,8 @@ export type Shift = {
     style: string, 
     shiftLead?: string, 
     date?: Date,
-    id?: string
+    id?: string,
+    order? : number
 };
 
 export interface Shifts {
@@ -151,10 +152,10 @@ export class Shifts {
     ];
 
     protected shifts: Shift[] =  [
-        {type: 'first shift', style: 'work_shift'},
-        {type: 'second shift', style: 'work_shift'},
-        {type: 'night shift', style: 'work_shift'},
-        {type: 'day off', style: 'day_off'}
+        {type: 'first shift', style: 'work_shift', order: 1},
+        {type: 'second shift', style: 'work_shift', order: 2},
+        {type: 'night shift', style: 'work_shift', order: 3},
+        {type: 'day off', style: 'day_off', order: 4}
     ];
 
     private compare(num: number) { 
@@ -234,13 +235,20 @@ export class Shifts {
         let date2: Date = day; 
         let dayType: Shift | undefined = this.getShift(date1, date2, shiftLead); 
         if (dayType) return dayType ;   
-    }
+    };
+
+    private sortShifts(unorderedShifts: Shift[]) {
+        unorderedShifts.sort((a: Shift, b: Shift) => {
+            return a.order! - b.order!
+        });
+    };
          
     public get calculateShifts() : Shift [] {
         for (let i=0; i<this.teams.length; i++) {
             let newShift = this.calculateDate (i, this.initialDate);
             if (newShift) this.definedShifts[i] = newShift;
         };
-        return this.definedShifts
-    }  
+        this.sortShifts(this.definedShifts);
+        return this.definedShifts;
+    }; 
 }

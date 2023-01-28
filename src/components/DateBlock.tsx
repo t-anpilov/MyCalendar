@@ -6,7 +6,7 @@ type RowProps = {
    shifts: Shift[]
 };
 
-export const Row:React.FC<RowProps> = props => {
+export const DateBlock:React.FC<RowProps> = props => {
 
     return (
         <div className='DateBlock'>

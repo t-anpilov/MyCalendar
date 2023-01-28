@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Row } from './components/Row'
+import { DateBlock } from './components/DateBlock'
 import { Shifts } from './models/Shifts'
 import './App.css';
 
@@ -8,7 +8,7 @@ function App() {
     const [requiredDate, setRequiredDate] = useState(new Date());
     const refDateContainer = useRef<HTMLInputElement>(null);
     const handleDateInput = () => {
-      
+
       let enteredDate: Date | null = null;
       if (refDateContainer.current) enteredDate = new Date(refDateContainer.current.value);
       
@@ -28,7 +28,7 @@ function App() {
             onChange={handleDateInput}
           />
         </form>
-        <Row
+        <DateBlock
           shifts={ currentShifts.calculateShifts }
         />
       </div>

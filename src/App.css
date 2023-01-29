@@ -26,3 +26,8 @@ ul li {
     padding: 8px;
     font-size: 1.2rem;
 }
+
+.dateInput {
+    padding: 20px 0 24px 0;
+    text-align: center;
+}

@@ -2,13 +2,10 @@ import React from 'react';
 import { DateRow } from './components/DateRow';
 import './App.css';
 
-function App() {
+function App() { 
     
-    
-    return (
-      
-        <DateRow />
-      
+    return (      
+        <DateRow  />      
     );
 }
 

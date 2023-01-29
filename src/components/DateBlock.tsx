@@ -3,13 +3,14 @@ import { Cell } from './Cell'
 import { Shift } from '../models/Shifts';
 
 type BlockProps = {
-   shifts: Shift[]
+   shifts: Shift[];
+   id: string
 };
 
 export const DateBlock:React.FC<BlockProps> = props => {
 
     return (
-        <div className='DateBlock'>
+        <div className='DateBlock' key={props.id}>
             <header>{props.shifts[0].date?.toLocaleDateString()}</header>
             <ul>
             {

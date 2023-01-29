@@ -9,6 +9,7 @@ export const DateRow:React.FC = ()=> {
     const [dates, setDates] = useState<Date[]>([]);
     const msPerDay = 1000*60*60*24;
     const daysNumber = 4;
+    const addId = () => Math.round(Math.random()*1000).toString()
 
     const handleDateInput = () => {
 
@@ -28,8 +29,8 @@ export const DateRow:React.FC = ()=> {
     };
 
     return (
-      <div >
-        <form>
+      <div>
+        <form className='dateInput'>
           <input 
             type="date" 
             ref={refDateContainer}
@@ -40,9 +41,12 @@ export const DateRow:React.FC = ()=> {
         {
             dates.map((date) => {
                 let currentShifts = new Shifts(date);
+                let newId = addId()
                 return (
                     <DateBlock
                         shifts={ currentShifts.calculateShifts }
+                        id = {newId}
+                        key = {newId}
                     />
                 );
             })

@@ -2,11 +2,11 @@ import React from 'react';
 import { Cell } from './Cell'
 import { Shift } from '../models/Shifts';
 
-type RowProps = {
+type BlockProps = {
    shifts: Shift[]
 };
 
-export const DateBlock:React.FC<RowProps> = props => {
+export const DateBlock:React.FC<BlockProps> = props => {
 
     return (
         <div className='DateBlock'>

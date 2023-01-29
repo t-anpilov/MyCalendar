@@ -1,37 +1,14 @@
-import React, { useRef, useState } from 'react';
-import { DateBlock } from './components/DateBlock'
-import { Shifts } from './models/Shifts'
+import React from 'react';
+import { DateRow } from './components/DateRow';
 import './App.css';
 
 function App() {
     
-    const [requiredDate, setRequiredDate] = useState(new Date());
-    const refDateContainer = useRef<HTMLInputElement>(null);
-    const handleDateInput = () => {
-
-      let enteredDate: Date | null = null;
-      if (refDateContainer.current) enteredDate = new Date(refDateContainer.current.value);
-      
-      if (enteredDate !== null) {
-        setRequiredDate(enteredDate);
-      };     
-    };
-
     
-    let currentShifts = new Shifts(new Date(requiredDate))
     return (
-      <div className="App">
-        <form>
-          <input 
-            type="date" 
-            ref={refDateContainer}
-            onChange={handleDateInput}
-          />
-        </form>
-        <DateBlock
-          shifts={ currentShifts.calculateShifts }
-        />
-      </div>
+      
+        <DateRow />
+      
     );
 }
 

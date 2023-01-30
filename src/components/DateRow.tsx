@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { DateBlock } from './DateBlock';
 import { Shifts } from '../models/Shifts';
 
@@ -9,7 +9,18 @@ export const DateRow:React.FC = ()=> {
     const [dates, setDates] = useState<Date[]>([]);
     const msPerDay = 1000*60*60*24;
     const daysNumber = 4;
-    const addId = () => Math.round(Math.random()*1000).toString()
+    const addId = () => Math.round(Math.random()*1000).toString();
+
+    
+    useEffect (() => {
+      let currentDate = new Date();
+      let requiredDates: Date [] = [];
+      for (let i=0; i<daysNumber; i++) {
+        let newDate = new Date(+currentDate + msPerDay*i);
+        requiredDates.push(newDate);
+      };
+      setDates([...requiredDates]);
+    }, [])
 
     const handleDateInput = () => {
 
@@ -34,7 +45,7 @@ export const DateRow:React.FC = ()=> {
           <input 
             type="date" 
             ref={refDateContainer}
-            onChange={handleDateInput}
+            onInput={handleDateInput}
           />
         </form>
         <div>

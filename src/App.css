@@ -13,7 +13,7 @@ ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content:space-around;
+    justify-content:start;
     width: 90%;
     margin-right: 5%;
     margin-left: 5%;
@@ -44,7 +44,7 @@ ul li {
 }
 
 .dateInput {
-    padding-left: 10%;
+    padding-left: 7.5%;
     padding-top: 16px;
     padding-bottom: 24px;
     background-color: #b7bdc2;

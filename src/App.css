@@ -2,32 +2,101 @@ ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    margin-top: 10px;
 }
 
-.DateBlock {
+.commonView {
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-around;
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.dateBlock {
     display: inline-block;    
-    margin: 20px 0px 0px 32px;
-    width: 210px;
-    padding: 12px;
+    margin: 36px 18px 0px;
+    width: 15%;
+    min-width: 180px;
+    max-width: 250px;
+    padding: 0px 12px 10px;
     opacity: 0.81;
     text-align: center;
+    border: thick double #424445;
+    box-shadow: 8px 8px 8px #787b7d;
 }
 
 ul li {
     padding: 8px;
-    margin: 1px;
-    opacity: 0.81;
-    border: 1px solid rgb(102, 112, 122);
-    font-size: 1.1rem;
-    font-weight: bold;
+    margin: 5px; 
+    font-weight: 600;
 }
 
-.DateBlock header {
+.dateBlock header {
     padding: 8px;
     font-size: 1.2rem;
 }
 
 .dateInput {
-    padding: 20px 0 24px 0;
-    text-align: center;
+    padding-left: 10%;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    background-color: #b7bdc2;
+    border-bottom: 1px solid #424445;
+}
+
+.dateInput div {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.inputField {
+    padding: 4px 0 4px 4px;
+    margin-top: 8px;
+}
+
+#choseDate {
+    width: 76%;  
+}
+
+#numberOfDays {
+    width: 60%;
+}
+
+.day_shift {
+    background-color: rgb(193, 217, 242);
+}
+
+.night_shift {
+    background-color: rgba(181, 182, 187, 0.996);
+}
+.day_off {
+    margin: 0px;     
+}
+
+label {
+    font-weight: bold;
+}
+
+.regular {
+    background-color:rgb(255, 253, 247);
+}
+
+.weekend {
+    background-color: rgb(235, 223, 192);
+}
+
+.dateBlock  h3 {
+    padding: 8px 0 8px 0;
+    font-weight: normal;
+}
+
+.dateBlock h4 {
+    padding-bottom: 8px;
 }

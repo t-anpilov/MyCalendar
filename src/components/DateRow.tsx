@@ -5,50 +5,96 @@ import { Shifts } from '../models/Shifts';
 export const DateRow:React.FC = ()=> {
         
     const refDateContainer = useRef<HTMLInputElement>(null);
-
     const [dates, setDates] = useState<Date[]>([]);
+    const [daysNumber, setDaysNumber] = useState<number>(4);
+    
+    const daysNumbersSelect = ['', 1, 3, 4, 7, 10];
     const msPerDay = 1000*60*60*24;
-    const daysNumber = 4;
-    const addId = () => Math.round(Math.random()*1000).toString();
 
+    const addId = () => Math.round(Math.random()*1000).toString();
     
     useEffect (() => {
-      let currentDate = new Date();
+                
       let requiredDates: Date [] = [];
-      for (let i=0; i<daysNumber; i++) {
-        let newDate = new Date(+currentDate + msPerDay*i);
+
+      if (!dates.length && daysNumber) {
+        
+        let currentDate = new Date((new Date).toLocaleDateString());
+        for (let i=0; i<daysNumber; i++) {
+          let newDate = new Date(+currentDate + msPerDay*i);          
+          requiredDates.push(newDate);
+        };
+        setDates([...requiredDates]);
+      }      
+      
+    }, []);
+
+
+    const renderDates = (startDate: Date, count: number ) => {
+      let requiredDates: Date [] = [];
+      for (let i=0; i<count; i++) {
+        let newDate = new Date(+startDate + msPerDay*i);
         requiredDates.push(newDate);
       };
-      setDates([...requiredDates]);
-    }, [])
+      if (requiredDates.length > 0) {
+        setDates([...requiredDates]);
+        }
+    }; 
 
     const handleDateInput = () => {
 
       let enteredDate: Date | null = null;
-      let requiredDates: Date [] = [];
-      if (refDateContainer.current) {
+      if (refDateContainer.current && daysNumber) {
         enteredDate = new Date(refDateContainer.current.value);
-        for (let i=0; i<daysNumber; i++) {
-            let newDate = new Date(+enteredDate + msPerDay*i);
-            requiredDates.push(newDate);
-        };
-      };       
-
-      if (requiredDates.length > 0) {
-        setDates([...requiredDates]);
-      };     
+        renderDates(enteredDate, daysNumber);
+      };  
     };
 
+    const handleNumberInput = (e: React.ChangeEvent<HTMLSelectElement>) => {
+      if (e.target && e.target.value) {
+        let eneteredNumber:number = Number(e.target.value); 
+        renderDates(dates[0], eneteredNumber);       
+        setDaysNumber(eneteredNumber); 
+               
+      } 
+    }
+    
     return (
-      <div>
+      <div className='commonView'>
         <form className='dateInput'>
+          <div>
+          <label htmlFor="choseDate">Коли &nbsp; &nbsp;</label>
           <input 
+            className='inputField'
+            name ="choseDateInput"
+            id ="choseDate"
             type="date" 
             ref={refDateContainer}
             onInput={handleDateInput}
+            placeholder = {(new Date()).toLocaleDateString()}
           />
+          </div>
+          <div>
+          <label htmlFor="numberOfDays">Timerange &nbsp; &nbsp;</label>
+          <select             
+            className='inputField'
+            name ="numberOfDaysSelect"
+            id ="numberOfDays"
+            onChange={handleNumberInput}
+          >
+            {
+              daysNumbersSelect.map((value: number | string) => {
+                return (
+                  <option key = {value.toString()} value = {value}>
+                    {value ? `${value} days` : ''}
+                  </option>
+                )
+              })
+            }
+          </select>
+          </div> 
         </form>
-        <div>
+        <div className='container'>
         {
             dates.map((date) => {
                 let currentShifts = new Shifts(date);

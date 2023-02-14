@@ -31,9 +31,9 @@ export class Shifts {
     ];
 
     protected shifts: Shift[] =  [
-        {type: 'first shift', style: 'work_shift', order: 1},
-        {type: 'second shift', style: 'work_shift', order: 2},
-        {type: 'night shift', style: 'work_shift', order: 3},
+        {type: 'first shift', style: 'day_shift', order: 1},
+        {type: 'second shift', style: 'day_shift', order: 2},
+        {type: 'night shift', style: 'night_shift', order: 3},
         {type: 'day off', style: 'day_off', order: 4}
     ];
 

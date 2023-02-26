@@ -23,16 +23,16 @@ export class Shifts {
     }
 
     protected teams: Team[] = [
-        {firstDate: '2020, 6, 8', lead: 'Viacheslav Yuriev'},
-        {firstDate: '2020, 6, 11', lead: 'Oleg Melnychuk'},
-        {firstDate: '2020, 6, 14', lead: 'Dmytro Kytsiuk'},
-        {firstDate: '2020, 6, 17', lead: 'Yevhenii Bozhenko'},
-        {firstDate: '2020, 6, 20', lead: 'Maksym Soroka'}
+        {firstDate: '2023, 3, 10', lead: 'Viacheslav Yuriev'},
+        {firstDate: '2023, 3, 13', lead: 'Oleg Melnychuk'},
+        {firstDate: '2023, 3, 1', lead: 'Dmytro Kytsiuk'},
+        {firstDate: '2023, 3, 4', lead: 'Yevhenii Bozhenko'},
+        {firstDate: '2023, 3, 7', lead: 'Dmytro Tarasiuk'}
     ];
 
     protected shifts: Shift[] =  [
-        {type: 'first shift', style: 'day_shift', order: 1},
-        {type: 'second shift', style: 'day_shift', order: 2},
+        {type: 'first shift', style: 'first_shift', order: 1},
+        {type: 'second shift', style: 'second_shift', order: 2},
         {type: 'night shift', style: 'night_shift', order: 3},
         {type: 'day off', style: 'day_off', order: 4}
     ];

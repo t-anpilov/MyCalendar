@@ -71,6 +71,7 @@ export const DateRow:React.FC = ()=> {
             type="date" 
             ref={refDateContainer}
             onInput={handleDateInput}
+            onKeyDown={(e) => e.preventDefault()}
             placeholder = {(new Date()).toLocaleDateString()}
           />
           </div>

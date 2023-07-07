@@ -19,11 +19,12 @@ export const DateRow:React.FC = ()=> {
 
       if (!dates.length && daysNumber) {
         
-        let currentDate = new Date((new Date).toLocaleDateString());
+        let currentDate = new Date();
         for (let i=0; i<daysNumber; i++) {
           let newDate = new Date(+currentDate + msPerDay*i);          
           requiredDates.push(newDate);
         };
+        console.log(requiredDates);
         setDates([...requiredDates]);
       }      
       

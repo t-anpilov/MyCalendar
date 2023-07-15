@@ -64,10 +64,37 @@ export class Shifts {
         }
         if (result !== null) return result;
     }
+
+    //method to check if we have discrepancy beetween summer/winter time (solution for UTC+2/UTC+3)
+    private findTimeZoneDifference(firstdate: Date, currentDate: Date) {
+        const timezoneInitial = firstdate.getTimezoneOffset();
+        const timezoneRequired = currentDate.getTimezoneOffset();        
+        const timezoneInitialHours = -Math.floor(timezoneInitial / 60);
+        const timezoneRequiredHours = -Math.floor(timezoneRequired / 60);
+
+        if (timezoneRequiredHours - timezoneInitialHours === 0) {
+            return false
+        } else {
+            return true
+        }
+    } 
     
     private getShift(initialDate: Date, requiredDate: Date, shiftLead: string) {
-        let date: number = Math.round(+initialDate/86400000);
-        let day: number = Math.round(+requiredDate/86400000);
+
+        let date: number; //date for countdown
+        let day: number = Math.round(+requiredDate/86400000); //current or searched date
+        console.log (requiredDate.getHours())
+        if (
+            this.findTimeZoneDifference(initialDate, requiredDate)
+            && (requiredDate.getHours() > 22)            
+            ) 
+        {
+            date= Math.round(+initialDate/86400000) + 1;
+        } else {
+            date = Math.round(+initialDate/86400000);
+        }
+        
+        
         let someShift: Shift | null = null;   
         let x: number, y: number;
         if (day>=date){

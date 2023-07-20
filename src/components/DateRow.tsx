@@ -25,7 +25,7 @@ export const DateRow:React.FC = ()=> {
           let newDate = new Date(+currentDateUTC + msPerDay*i);          
           requiredDates.push(newDate);
         };
-        console.log(requiredDates);
+        //console.log(requiredDates);
         setDates([...requiredDates]);
       }      
       
@@ -40,7 +40,7 @@ export const DateRow:React.FC = ()=> {
         requiredDates.push(newDate);
       };
       if (requiredDates.length > 0) {
-        console.log(requiredDates);
+        //console.log(requiredDates);
         setDates([...requiredDates]);
         }
     }; 

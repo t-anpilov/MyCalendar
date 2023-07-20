@@ -19,9 +19,10 @@ export const DateRow:React.FC = ()=> {
 
       if (!dates.length && daysNumber) {
         
-        let currentDate = new Date();        
+        let currentDate = new Date();
+        let currentDateUTC = new Date(currentDate.setUTCHours(0, 0, 0, 0)); // setting to utc format    
         for (let i=0; i<daysNumber; i++) {
-          let newDate = new Date(+currentDate + msPerDay*i);          
+          let newDate = new Date(+currentDateUTC + msPerDay*i);          
           requiredDates.push(newDate);
         };
         console.log(requiredDates);
@@ -33,11 +34,13 @@ export const DateRow:React.FC = ()=> {
 
     const renderDates = (startDate: Date, count: number ) => {
       let requiredDates: Date [] = [];
+      const startDayUTC = new Date(startDate.setUTCHours(0, 0, 0, 0))
       for (let i=0; i<count; i++) {
-        let newDate = new Date(+startDate + msPerDay*i);
+        let newDate = new Date(+startDayUTC + msPerDay*i);
         requiredDates.push(newDate);
       };
       if (requiredDates.length > 0) {
+        console.log(requiredDates);
         setDates([...requiredDates]);
         }
     }; 

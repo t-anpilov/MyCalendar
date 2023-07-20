@@ -1,6 +1,10 @@
 //using class
 
-type Team = {firstDate: string, lead: string};
+type Team = {
+    firstDate: [number, number, number], 
+    lead: string
+};
+
 export type Shift = {
     type: string, 
     style: string, 
@@ -23,11 +27,11 @@ export class Shifts {
     }
 
     protected teams: Team[] = [
-        {firstDate: '2023, 3, 10', lead: 'Viacheslav Yuriev'},
-        {firstDate: '2023, 3, 13', lead: 'Oleg Melnychuk'},
-        {firstDate: '2023, 3, 1', lead: 'Dmytro Kytsiuk'},
-        {firstDate: '2023, 3, 4', lead: 'Yevhenii Bozhenko'},
-        {firstDate: '2023, 3, 7', lead: 'Dmytro Tarasiuk'}
+        {firstDate: [2023, 2, 10], lead: 'Viacheslav Yuriev'},
+        {firstDate: [2023, 2, 13], lead: 'Oleg Melnychuk'},
+        {firstDate: [2023, 2, 1], lead: 'Dmytro Kytsiuk'},
+        {firstDate: [2023, 2, 4], lead: 'Yevhenii Bozhenko'},
+        {firstDate: [2023, 2, 7], lead: 'Dmytro Tarasiuk'}
     ];
 
     protected shifts: Shift[] =  [
@@ -64,37 +68,13 @@ export class Shifts {
         }
         if (result !== null) return result;
     }
-
-    //method to check if we have discrepancy beetween summer/winter time (solution for UTC+2/UTC+3)
-    private findTimeZoneDifference(firstdate: Date, currentDate: Date) {
-        const timezoneInitial = firstdate.getTimezoneOffset();
-        const timezoneRequired = currentDate.getTimezoneOffset();        
-        const timezoneInitialHours = -Math.floor(timezoneInitial / 60);
-        const timezoneRequiredHours = -Math.floor(timezoneRequired / 60);
-
-        if (timezoneRequiredHours - timezoneInitialHours === 0) {
-            return false
-        } else {
-            return true
-        }
-    } 
     
     private getShift(initialDate: Date, requiredDate: Date, shiftLead: string) {
 
-        let date: number; //date for countdown
-        let day: number = Math.round(+requiredDate/86400000); //current or searched date
-        console.log (requiredDate.getHours())
-        if (
-            this.findTimeZoneDifference(initialDate, requiredDate)
-            && (requiredDate.getHours() > 22)            
-            ) 
-        {
-            date= Math.round(+initialDate/86400000) + 1;
-        } else {
-            date = Math.round(+initialDate/86400000);
-        }
-        
-        
+        let date: number = +initialDate/86400000; //date for countdown
+        let day: number = Math.floor(+requiredDate/86400000); //current or searched date
+        date = Math.round(+initialDate/86400000);
+                
         let someShift: Shift | null = null;   
         let x: number, y: number;
         if (day>=date){
@@ -137,7 +117,8 @@ export class Shifts {
     
     private calculateDate(team: number, day: Date) {
         let shiftLead: string = this.teams[team].lead;
-        let date1: Date = new Date(this.teams[team].firstDate); 
+        const firstDayParameters = this.teams[team].firstDate;
+        let date1: Date = new Date(Date.UTC(...firstDayParameters)); 
         let date2: Date = day; 
         let dayType: Shift | undefined = this.getShift(date1, date2, shiftLead); 
         if (dayType) return dayType ;   
